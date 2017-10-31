@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace TagsCloudVisualisation
@@ -20,6 +21,7 @@ namespace TagsCloudVisualisation
             graphics.DrawEllipse(pen, new Rectangle(cloud.Center, new Size(2,2)));
             graphics.Save();
             bm.Save($"{visualisationName}.png");
+            Process.Start($"{visualisationName}.png"); // Launches default photo viewing app
         }
     }
 }

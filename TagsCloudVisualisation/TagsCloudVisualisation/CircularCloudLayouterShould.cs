@@ -18,7 +18,6 @@ namespace TagsCloudVisualisation
         public void SetUp()
         {
             center = new Point(500, 500);
-            cloud = new Cloud(new Point(), new List<Rectangle>());
             rnd = new Random();
         }
 
@@ -65,6 +64,7 @@ namespace TagsCloudVisualisation
         [TestCase(100, 5, 30, 5, 10, TestName = "100 прямоугольников с размерами 5<x<30 5<y<10")]
         [TestCase(10, 5, 30, 5, 10, TestName = "10 прямоугольников с размерами 5<x<30 5<y<10")]
         [TestCase(1, 500, 550, 500, 550, TestName = "1 прямоугольник с размерами 500<x<550 500<y<550")]
+        [TestCase(7, 7, 7, 7, 7, TestName = "7 прямоугольников с размерами 7<x<7 7<y<7")]
         public void PutNextRectangle_AfterPuttingSeveralRectanglesWithRandomSize_RectanglesDoesNotIntersect(
             int count, int minSizeX, int maxSizeX, int minSizeY, int maxSizeY)
         {
@@ -82,6 +82,38 @@ namespace TagsCloudVisualisation
                 {
                     rectangles[i].IntersectsWith(rectangles[j]).Should().BeFalse();
                 }
+        }
+
+        [TestCase(100, 5, 5, TestName = "Когда 100 квадратов со стороной 5")]
+        [TestCase(20, 5, 5, TestName = "Когда 20 квадратов со стороной 5")]
+        [TestCase(7, 5, 5, TestName = "Когда 7 квадратов со стороной 5")]
+        [TestCase(5, 5, 5, TestName = "Когда 5 квадрат со стороной 5")]
+        public void PutNextRectangle_CircumscribedCircleSquare_MustBeLessOrEqualThanSummarySquare(
+            int count, int width, int height)
+        {
+            var layouter = new CircularCloudLayouter(center);
+            var size = new Size(width, height);
+            var rectangles = new List<Rectangle>();
+            for (var i = 0; i < count; i++)
+            {
+                var rectangle = layouter.PutNextRectangle(size);
+                rectangles.Add(rectangle);
+            }
+
+            var summaryRectanglesSquare = count*size.Width*size.Height;
+            var radius = 0.0;
+            foreach (var rectangle in rectangles)
+            {
+                var rectangleCenter = new Point(rectangle.X + rectangle.Size.Width/2,
+                    rectangle.Y + rectangle.Size.Height/2);
+                var vector = new Point(rectangleCenter.X - center.X, rectangleCenter.Y - center.Y);
+                var distanse = Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
+                if (distanse > radius)
+                    radius = distanse;
+            }
+            var circumscribedSquare = Math.PI*Math.Pow(radius, 2);
+            cloud = new Cloud(layouter.Center, layouter.Rectangles);
+            circumscribedSquare.Should().BeLessOrEqualTo(summaryRectanglesSquare*1.1);
         }
     }
 }
