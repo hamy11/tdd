@@ -1,8 +1,9 @@
 # Результаты генерации облаков
 
 bigDispersionCloud
-![TagCloud](https://imgur.com/l7Ftesa)
+![TagCloud](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Web_2.0_Map.svg/800px-Web_2.0_Map.svg.png)
+![TagCloud](https://i.imgur.com/l7Ftesa.png)
 massiveCloud
-![TagCloud](https://imgur.com/Vulh2Mz)
+![TagCloud](https://i.imgur.com/Vulh2Mz.png)
 smallCloud
-![TagCloud](https://imgur.com/l3ThOcI)
+![TagCloud](https://i.imgur.com/l3ThOcI.png)
