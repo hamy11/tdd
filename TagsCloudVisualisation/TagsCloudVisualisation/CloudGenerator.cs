@@ -8,7 +8,6 @@ namespace TagsCloudVisualisation
         public static Cloud GenerateCloud(Point center, int rectanglesCount, Func<Size> getSize)
         {
             var layouter = new CircularCloudLayouter(center);
-            var rnd = new Random();
             for (var i = 0; i < rectanglesCount; i++)
             {
                 var size = getSize();
