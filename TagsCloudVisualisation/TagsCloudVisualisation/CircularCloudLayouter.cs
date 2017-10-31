@@ -60,7 +60,7 @@ namespace TagsCloudVisualisation
             {
                 const double turningDistance = 0.5;
                 var theta = degrees*Math.PI/180;
-                var radius = 1 + turningDistance*theta;
+                var radius = turningDistance*theta;
                 return new Point
                 {
                     X = (int) (center.X + radius*Math.Cos(theta)),

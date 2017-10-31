@@ -113,7 +113,7 @@ namespace TagsCloudVisualisation
             }
             var circumscribedSquare = Math.PI*Math.Pow(radius, 2);
             cloud = new Cloud(layouter.Center, layouter.Rectangles);
-            circumscribedSquare.Should().BeInRange(0, summaryRectanglesSquare*1.2);
+            circumscribedSquare.Should().BeLessOrEqualTo(summaryRectanglesSquare*1.1);
         }
     }
 }
